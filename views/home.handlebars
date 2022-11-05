@@ -1,0 +1,424 @@
+<div class="container text-center" style="
+        margin-top: 2rem;
+        width: 65%;">
+    <div class="row" style="
+        gap: 32px;
+    ">
+        <div class="col" style="
+        background-color: #fefefe;
+        border-radius: 6px;
+        ">
+            <div class="textos" style="
+                    align-itens: center;
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 0 auto;
+                    padding: .8rem;
+                    width: 90%;
+                    
+                ">
+                <div class="txt" style="
+                        text-align: center;
+                    ">
+                    <p style="
+                            font-family: 'Roboto Mono', monospace;
+                        ">Entradas</p>
+                </div>
+
+                <div class="icon">
+                    <box-icon name='up-arrow-circle' color="#33cc95"></box-icon>
+                </div>
+            </div>
+            <div class="number" style="
+                    width: 90%;
+                ">
+                <p style="
+                        font-family: 'Mulish', sans-serif;
+                        font-size: 30px;
+                        font-weight: 300;
+                    ">R$ 6000,00</p>
+            </div>
+        </div>
+        <div class="col" style="background-color: #fefefe; border-radius: 6px;">
+            <div class="textos" style="
+                    align-itens: center;
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 0 auto;
+                    padding: .8rem;
+                    width: 90%;
+                    
+                ">
+                <div class="txt" style="text-align: center;">
+                    <p style="font-family: 'Roboto Mono', monospace;">Saídas</p>
+                </div>
+
+                <div class="icon">
+                    <box-icon name='down-arrow-circle' color="#cc4934"></box-icon>
+                </div>
+            </div>
+
+            <div class="number" style="
+                    width: 90%;
+                ">
+                <p style="
+                        color: #cc4934;
+                        font-family: 'Mulish', sans-serif;
+                        font-size: 30px;
+                        font-weight: 300;
+                ">- R$ 6000,00</p>
+            </div>
+
+        </div>
+
+        <div class="col" style="
+        background-color: #33cc95; border-radius: 6px;
+        ">
+            <div class="textos" style="
+                    align-itens: center;
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 0 auto;
+                    padding: .8rem;
+                    width: 90%;
+                    
+                ">
+                <div class="txt" style="
+                        text-align: center;
+                    ">
+                    <p style="
+                            color: #fefefe;
+                            font-family: 'Roboto Mono', monospace;
+                        ">Total</p>
+                </div>
+
+                <div class="icon">
+                    <box-icon name='transfer-alt' color="#fefefe"></box-icon>
+                </div>
+            </div>
+
+            <div class="number" style="
+                    width: 90%;
+                ">
+                <p style="
+                        color: #fefefe;
+                        font-family: 'Mulish', sans-serif;
+                        font-size: 30px;
+                        font-weight: 300;
+                    ">R$ 6000,00</p>
+            </div>
+
+        </div>
+    </div>
+
+    {{!------- BOTAO ADICIONAR -------}}
+
+    <!-- Button trigger modal -->
+    <div class="botao">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Nova Transação
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Nova Transação</h1>
+                    </div>
+                    <div class="modal-body">
+                        <div class="Ttitulo">
+                            <label for="titulo-transacao">Título da Transação</label>
+                            <input type="text" placeholder="Digite aqui..." id="descricao">
+                        </div>
+                        <div class="first-row-input">
+                            <div class="inputers">
+                                <div class="date">
+                                    <label for="data">Data</label>
+                                    <input type="date" class="data-input">
+                                </div>
+                                <div class="hora">
+                                    <label for="hora">Hora</label>
+                                    <input type="time" class="hora-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Ttitulo">
+                            <label for="titulo-transacao">Valor</label>
+                            <input type="text" placeholder="400.00" id="descricao">
+                        </div>
+                        <div class="container text-center">
+                            <div class="row-input">
+                                <label for="tipo">Tipo de Transação</label>
+                                <div class="btns">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input sEntry" type="radio" role="switch" name="switch"
+                                            id="flexSwitchCheckDefault" checked>
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">Entrada</label>
+                                    </div>
+                                    <div class="form-check form-switch sOut">
+                                        <input class="form-check-input" type="radio" role="switch" name="switch"
+                                            id="flexSwitchCheckDefault">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">Saída</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lastinput">
+                            <label for="valor" style="text-align: left">Valor</label>
+                            <div class="last-row-input">
+                                <div class="valor-input">
+                                    <input type="text" placeholder="400.00">
+                                </div>
+                                <div class="cat">
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>Categoria</option>
+                                        <option value="Equipamentos">Equipamentos</option>
+                                        <option value="Lazer">Lazer</option>
+                                        <option value="Locomoção">Locomoção</option>
+                                        <option value="Salário">Salário</option>
+                                        <option value="Saúde">Saúde</option>
+                                        <option value="Supermercado">Supermercado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {{!------- TABELA -------}}
+
+    <div class="table-responsive" style="
+            margin: 4rem 0;
+            width: 100%;
+        ">
+        <table class="table">
+            <thead>
+                <tr style="
+                        color: #7f7f7f;
+                    ">
+                    <th scope="col" style="text-align: left"><i class='bx bx-edit-alt'></i> Título</th>
+                    <th scope="col" style="text-align: left"><i class='bx bx-credit-card-alt'></i> Valor</th>
+                    <th scope="col" style="text-align: left"><i class='bx bx-checkbox-checked'></i> Categoria</th>
+                    <th scope="col" style="text-align: left"><i class='bx bxs-calendar'></i> Data</th>
+                    <th scope="col" style="text-align: left"><i class='bx bx-time'></i> Hora</th>
+                    <th scope="col" style="text-align: left" class="oculto"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#if listaLancamentos}}
+                <tr class="linha">
+                    {{#each listaLancamentos}}
+                    <td>{{descricao}}</td>
+                    <td class="valor">{{valor}}</td>
+                    <td>{{categoria}}</td>
+                    <td>{{dia}}</td>
+                    <td>{{hora}}</td>
+                    <td class="oculto">
+                        <a href="/delete/{{id}}" class="deletar">
+                            <i class='bx bx-x-circle'></i>
+                        </a>
+                    </td>
+                    {{/each}}
+                </tr>
+                {{/if}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .botao {
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+        margin: 2rem 0;
+    }
+
+    .botao button {
+        background-color: #33cc95;
+        border: none;
+    }
+
+    .botao button:hover {
+        background-color: #49b99d;
+    }
+
+    .btns {
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+        width: 80%;
+    }
+
+    .btntextos:hover {
+        cursor: pointer;
+    }
+
+    .cat {
+        margin: 1rem 0;
+        width: 50%;
+    }
+
+    .cat select {
+        background-color: #E7E9EE;
+        height: 2rem;
+    }
+
+    .date,
+    .hora {
+        align-itens: center;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 16px;
+        text-align: left;
+        width: 40%;
+    }
+
+    .deletar{
+        color: #cc4934;
+        text-decoration: none;
+        transition: 1s;
+    }
+
+    .deletar:hover{
+        color: #cc4934;
+        transform: rotateX(80deg);
+    }
+
+    .dowArrow {
+        background-color: royalblue;
+        align-items: center;
+        display: flex;
+        height: 100%;
+        justify-content: space-evenly;
+    }
+
+    .first-row-input {
+        align-items: center;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .inputers {
+        align-items: center;
+        display: flex;
+        gap: 20%;
+        justify-content: flex-start;
+        width: 80%;
+    }
+
+    .last-row-input {
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+        width: 80%;
+    }
+
+    .lastinput {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .linha {
+        background-color: #fefefe;
+    }
+
+    .modal-dialog {
+        background-color: #F9F6F6;
+        border-radius: 6px;
+    }
+
+    .modal-header {
+        border: none;
+    }
+
+    .oculto {
+        color: #cc4934;
+        transition: ease 1s;
+    }
+
+    .oculto:hover {
+        cursor: pointer;
+    }
+
+    .row-input {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-align: center;
+        width: 80%
+    }
+
+    table {
+        border-spacing: 2rem;
+    }
+
+    tbody {
+        text-align: left;
+    }
+
+    thead tr {
+        margin-bottom: 1rem;
+    }
+
+    tr {
+        border-radius: 6px;
+        row-gap: 1rem;
+    }
+
+    .Ttitulo {
+        align-itens: center;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 16px;
+        text-align: left;
+        width: 80%;
+    }
+
+    .Ttitulo input,
+    .data-input,
+    .hora-input {
+        border: none;
+        border-radius: 6px;
+        background-color: #E7E9EE;
+        height: 2rem;
+        padding: 10px;
+    }
+
+    .valor-input {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-align: left;
+        width: 40%;
+    }
+
+    .valor-input input {
+        border: none;
+        border-radius: 6px;
+        background-color: #E7E9EE;
+        height: 2rem;
+        padding: 10px;
+        width: 100%;
+    }
+
+    @media screen and (max-width: 425px) {
+        .botao {
+            justify-content: center;
+        }
+
+        .table-responsive {
+            width: 90vw !important;
+        }
+    }
+</style>
