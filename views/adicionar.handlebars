@@ -1,0 +1,177 @@
+<form action="/adicionar" method="post" class="caixa">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <div class="otacaixa">
+                    <div class="Ttitulo marginb">
+                        <label for="titulo-transacao">Título da Transação</label>
+                        <input type="text" placeholder="Coxinha" value="{{titulo}}" name="titulo"
+                            class="entrando">
+                    </div>
+                    <div class="inputers container-fluid">
+                        <div class="date">
+                            <label for="data">Data</label>
+                            <input type="date" class="data-input entrando" name="data" value="{{dia}}">
+                        </div>
+                        <div class="hora container-fluid">
+                            <label for="hora">Hora</label>
+                            <input type="time" class="hora-input entrando" name="hora" value="{{hora}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="tipo-transacao otacaixa">
+                    <label for="tipo">Tipo de Transação</label>
+                    <div class="btns">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="radio" role="switch" name="tipo"
+                                id="flexSwitchCheckDefault" checked value="{{1}}">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Entrada</label>
+                        </div>
+                        <div class="form-check form-switch sOut">
+                            <input class="form-check-input" type="radio" role="switch" name="tipo"
+                                id="flexSwitchCheckDefault" value="{{-1}}">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Saída</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="otacaixa">
+                    <div class="valor-input">
+                        <label for="valor" style="text-align: left">Valor</label>
+                        <input type="text" placeholder="400.00" value="{{valor}}" name="valor" step="any"
+                            class="entrando">
+                    </div>
+                    <div class="cat">
+                        <label for="categoria" style="text-align: left">Categoria</label>
+                        <input type="text" placeholder="Alimentação" value="{{categoria}}" name="categoria" step="any"
+                            class="entrando">
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>
+<div class="fim container-fluid">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a href="/"
+            class="link">Cancelar</a></button>
+    <button type="submit" class="btn btn-primary add">Adicionar</button>
+</div>
+</div>
+
+<style>
+    .add {
+        background-color: #33cc95;
+        border: none;
+    }
+
+    .btns {
+        align-items: center;
+        display: flex;
+        gap: 2rem;
+    }
+
+    .caixa {
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+        height: 93vh;
+    }
+
+    .date,
+    .hora {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .entrando {
+        padding: .8rem;
+    }
+
+    .fim {
+        align-items: center;
+        display: flex;
+        gap: 10%;
+        justify-content: center;
+        margin-top: 3rem;
+    }
+
+    input {
+        background-color: #F9F6F6;
+        border: none;
+        border-radius: 6px;
+        height: 2rem;
+        width: 90%;
+    }
+
+    .inputers {
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+        text-align: left;
+    }
+
+    label {
+        text-align: left;
+    }
+
+    .lastinput {
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .link,
+    .link-btn {
+        color: #ebe8e5;
+        text-decoration: none;
+    }
+
+    .link:hover,
+    .link-btn:hover {
+        color: #ebe8e5;
+    }
+
+    .marginb {
+        margin-bottom: 1rem;
+    }
+
+    .otacaixa {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        padding: .6rem;
+    }
+
+    .Ttitulo {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .tipo-transacao {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        margin: 2rem;
+    }
+
+    .valor-input {
+        margin-bottom: .6rem;
+    }
+
+    .valor-input,
+    .cat {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+</style>

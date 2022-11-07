@@ -1,0 +1,72 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Nova Transação</h1>
+                    </div>
+                    <form method="post" action="cadastrar/produto/">
+                        <div class="modal-body">
+                            <div class="Ttitulo">
+                                <label for="titulo-transacao">Título da Transação</label>
+                                <input type="text" placeholder="Digite aqui..." id="descricao" name="descricao"
+                                    value="{{descricao}}">
+                            </div>
+                            <div class="first-row-input">
+                                <div class="inputers">
+                                    <div class="date">
+                                        <label for="data">Data</label>
+                                        <input type="date" class="data-input" name="data" value="{{dia}}">
+                                    </div>
+                                    <div class="hora">
+                                        <label for="hora">Hora</label>
+                                        <input type="time" class="hora-input" name="hora" value="{{hora}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container text-center">
+                                <div class="row-input">
+                                    <label for="tipo">Tipo de Transação</label>
+                                    <div class="btns">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input sEntry" type="radio" role="switch"
+                                                name="tipo" id="flexSwitchCheckDefault" checked value="{{1}}">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Entrada</label>
+                                        </div>
+                                        <div class="form-check form-switch sOut">
+                                            <input class="form-check-input" type="radio" role="switch" name="tipo"
+                                                id="flexSwitchCheckDefault" value="{{0}}">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Saída</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lastinput">
+                                <label for="valor" style="text-align: left">Valor</label>
+                                <div class="last-row-input">
+                                    <div class="valor-input">
+                                        <input type="text" placeholder="400.00" value="{{valor}}" step="any">
+                                    </div>
+                                    <div class="cat">
+                                        <select class="form-select" aria-label="Default select example"
+                                            name="categoria">
+                                            <option selected>Categoria</option>
+                                            <option value="{{Equipamentos}}">Equipamentos</option>
+                                            <option value="{{Lazer}}">Lazer</option>
+                                            <option value="{{Locomoção}}">Locomoção</option>
+                                            <option value="{{Salário}}">Salário</option>
+                                            <option value="{{Saúde}}">Saúde</option>
+                                            <option value="{{Supermercado}}">Supermercado</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-primary"><a href="/adicionar/produto/"
+                                    class="link-btn">Adicionar</a></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>

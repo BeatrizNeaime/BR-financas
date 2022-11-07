@@ -17,10 +17,11 @@ create table devs(
     telefone varchar(10)
 );
 
-insert into lancamentos(id, descricao, valor, tipo, categoria, dia, hora) value (1, "Arte de Caderno", 400.00, 1, "Dev", "05/06/2022", '22:16');
+insert into lancamentos(id,descricao, valor, tipo, categoria, dia, hora) value (1, "Arte de Caderno", '400,00', 1, "Dev", "05/06/2022", '22:16');
+insert into lancamentos(descricao, valor, tipo, categoria, dia, hora) value ("Bolo", '-20,00', 1, "Dev", "05/06/2022", '22:00');
 
 select * from lancamentos;
 
 alter table lancamentos CHANGE dia dia varchar(50);
 alter table lancamentos CHANGE hora hora varchar(6);
-
+alter table lancamentos CHANGE valor valor varchar(100);

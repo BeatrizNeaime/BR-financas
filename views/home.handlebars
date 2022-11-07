@@ -116,82 +116,8 @@
     <!-- Button trigger modal -->
     <div class="botao">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Nova Transação
+            <a href="/adicionar/" class="link">Nova Transação</a>
         </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Nova Transação</h1>
-                    </div>
-                    <div class="modal-body">
-                        <div class="Ttitulo">
-                            <label for="titulo-transacao">Título da Transação</label>
-                            <input type="text" placeholder="Digite aqui..." id="descricao">
-                        </div>
-                        <div class="first-row-input">
-                            <div class="inputers">
-                                <div class="date">
-                                    <label for="data">Data</label>
-                                    <input type="date" class="data-input">
-                                </div>
-                                <div class="hora">
-                                    <label for="hora">Hora</label>
-                                    <input type="time" class="hora-input">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="Ttitulo">
-                            <label for="titulo-transacao">Valor</label>
-                            <input type="text" placeholder="400.00" id="descricao">
-                        </div>
-                        <div class="container text-center">
-                            <div class="row-input">
-                                <label for="tipo">Tipo de Transação</label>
-                                <div class="btns">
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input sEntry" type="radio" role="switch" name="switch"
-                                            id="flexSwitchCheckDefault" checked>
-                                        <label class="form-check-label" for="flexSwitchCheckDefault">Entrada</label>
-                                    </div>
-                                    <div class="form-check form-switch sOut">
-                                        <input class="form-check-input" type="radio" role="switch" name="switch"
-                                            id="flexSwitchCheckDefault">
-                                        <label class="form-check-label" for="flexSwitchCheckDefault">Saída</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="lastinput">
-                            <label for="valor" style="text-align: left">Valor</label>
-                            <div class="last-row-input">
-                                <div class="valor-input">
-                                    <input type="text" placeholder="400.00">
-                                </div>
-                                <div class="cat">
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected>Categoria</option>
-                                        <option value="Equipamentos">Equipamentos</option>
-                                        <option value="Lazer">Lazer</option>
-                                        <option value="Locomoção">Locomoção</option>
-                                        <option value="Salário">Salário</option>
-                                        <option value="Saúde">Saúde</option>
-                                        <option value="Supermercado">Supermercado</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary">Adicionar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
     {{!------- TABELA -------}}
 
@@ -217,17 +143,24 @@
                 <tr class="linha">
                     {{#each listaLancamentos}}
                     <td>{{descricao}}</td>
-                    <td class="valor">{{valor}}</td>
+                    {{#if valor}}
+                    <td class="valor entrada">R${{valor}}</td>
+                    {{else}}
+                    <td class="valor"><span class="saida">-R${{valor}}</span></td>
+                    {{/if}}
                     <td>{{categoria}}</td>
                     <td>{{dia}}</td>
                     <td>{{hora}}</td>
                     <td class="oculto">
-                        <a href="/delete/{{id}}" class="deletar">
+                        <a href="/delete/produto/{{id}}" class="deletar">
                             <i class='bx bx-x-circle'></i>
                         </a>
+                        <a href="/editar/{{id}}" class="deletar e">
+                            <i class='bx bxs-edit'></i>
+                        </a>
                     </td>
-                    {{/each}}
                 </tr>
+                {{/each}}
                 {{/if}}
             </tbody>
         </table>
@@ -262,6 +195,12 @@
         cursor: pointer;
     }
 
+    .cancel,
+    .cancel:hover {
+        background-color: #33cc95;
+        border: none;
+    }
+
     .cat {
         margin: 1rem 0;
         width: 50%;
@@ -282,13 +221,13 @@
         width: 40%;
     }
 
-    .deletar{
+    .deletar {
         color: #cc4934;
         text-decoration: none;
         transition: 1s;
     }
 
-    .deletar:hover{
+    .deletar:hover {
         color: #cc4934;
         transform: rotateX(80deg);
     }
@@ -299,6 +238,28 @@
         display: flex;
         height: 100%;
         justify-content: space-evenly;
+    }
+
+    .e {
+        color: #7f7f7f;
+    }
+
+    .e:hover {
+        color: #49b99d;
+    }
+
+    .entrada {
+        color: #33cc95;
+    }
+
+    .excluirbtn,
+    .excluirbtn:hover {
+        color: #fefefe;
+        text-decoration: none;
+    }
+
+    .excluirbtn button {
+        background-color: #7f7f7f;
     }
 
     .first-row-input {
@@ -331,6 +292,22 @@
         background-color: #fefefe;
     }
 
+    .link-btn {
+        background-color: #33cc95 !important;
+        color: #fefefe;
+        text-decoration: none;
+    }
+
+    .link {
+        color: #fefefe;
+        text-decoration: none;
+    }
+
+    .link:hover {
+        color: #fefefe;
+    }
+
+
     .modal-dialog {
         background-color: #F9F6F6;
         border-radius: 6px;
@@ -356,6 +333,10 @@
         justify-content: flex-start;
         text-align: center;
         width: 80%
+    }
+
+    .saida {
+        color: #cc4934;
     }
 
     table {
