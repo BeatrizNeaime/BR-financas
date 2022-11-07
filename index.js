@@ -82,24 +82,33 @@ app.get('/editar', function(req,res){
     res.render('editar')
 })
 
-app.get('/editar', async function (req, res) {
+app.get('/editar/:id', async function (req, res) {
     const id = parseInt(req.query.id)
-    const dadosProdutos = await query("SELECT * FROM lancamentos WHERE id=?", [id])
+    const dadosItem = await query("SELECT * FROM lancamentos WHERE id=?", [id])
 
-    if (dadosProdutos.length === 0) {
+    if (dadosItem.length === 0) {
         res.redirect('/')
     }
 
-    console.log(dadosProdutos)
-
+    const objItem = dadosItem[0]
     res.render('editar', {
-        descricao: dadosProdutos[0].descricao,
-        valor: dadosProdutos[0].valor,
-        tipo: dadosProdutos[0].tipo,
-        categoria: dadosProdutos[0].categoria,
-        dia: dadosProdutos[0].dia,
-        hora: dadosProdutos[0].hora
+        objItem
     })
+})
+
+app.post('/editar', async function(req,res){
+    let {id, valor, tipo, categoria, titulo, dia, hora} = req.body
+    const dados ={
+        objItem: {id:id, descricao:titulo, valor:valor, tipo:tipo, categoria:categoria, dia:dia, hora:hora}
+    }
+
+    let sql = 'UPDATE lancmentos set valor=?, titulo=?, tipo=?, categoria=?, dia=?, hora=? WHERE id=?';
+    let valores = [valor, titulo, tipo, categoria, dia, hora, id]
+
+    await query(sql, valores)
+
+    res.render('editar', dados)
+    res.redirect('/')
 })
 
 app.get('/adicionar', function (req, res) {
