@@ -75,12 +75,12 @@
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="titulo" value="{{titulo}}">
                         <button class="btn btn-outline-success" type="submit" style="
                                 align-itens: center;
                                 background-color: #33cc95;
                                 display: flex;
-                            "><i class='bx bx-search'></i></button>
+                            "><a href="/buscar{{titulo}}">Buscar</a></button>
                     </form>
                 </div>
             </div>
@@ -93,7 +93,7 @@
         crossorigin="anonymous"></script>
     <script src="../../public/assets/js/home.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-</body> 
+</body>
 
 <style>
     .linkson,

@@ -1,21 +1,66 @@
 <div class="caixa">
-    <div class="container text-center">
+    <div class="container text-center caixote">
         <div class="row">
             <div class="col">
-                
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0 otacaixa">
+                        <div class="col-md-4">
+                            <img src="assets/img/python.jpg" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Beatriz Neaime</h5>
+                                <p class="card-text">Aprendendo desenvolvimento web front-end. Bolsista pelo Instituto
+                                    Federal do Sul de Minas Gerais</p>
+                                <p class="card-text"><small class="text-muted">contato:
+                                        beatriz.neaime@alunos.ifsuldeminas.edu.br </small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col">
-                Column
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4 otacaixa">
+                            <img src="assets/img/java.jpg" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Rebeca Rosa</h5>
+                                <p class="card-text">Em aprendizado em desenvolvimento back-end. Estagiária na empresa
+                                    BigData Corp</p>
+                                <p class="card-text"><small class="text-muted">contato:
+                                        rebeca.rosa@alunos.ifsuldeminas.edu.br </small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <style>
-    .caixa{
+    .caixa {
         align-items: center;
         display: flex;
         height: 93vh;
         justify-items: space-evenly;
+    }
+
+    .otacaixa {
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    @media screen and(max-width: 425px) {
+        .col {
+            align-items: center;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-evenly;
+        }
     }
 </style>

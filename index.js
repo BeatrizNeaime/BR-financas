@@ -38,8 +38,30 @@ async function query(sql = '', values = []) {
 
 app.get("/", async function (req, res) {
     const listaLancamentos = await query('SELECT * FROM lancamentos')
+
+    let entradas = 0, saidas = 0, total = 0
+    for (let i = 0; i < listaLancamentos.length; i++) {
+        if (parseFloat(listaLancamentos[i].valor) >= 0) {
+            entradas += parseFloat(listaLancamentos[i].valor)
+        } else {
+            saidas += parseFloat(listaLancamentos[i].valor)
+        }
+    }
+
+    let helper
+    total = entradas + saidas
+    if (total < 0) {
+        helper = 0
+    } else {
+        helper = 1
+    }
+
     res.render('home', {
-        listaLancamentos: listaLancamentos
+        listaLancamentos: listaLancamentos,
+        entradas: entradas,
+        saidas: saidas,
+        total: total,
+        helper: helper
     })
 })
 
@@ -56,41 +78,64 @@ app.get("/delete/produto/:id", async function (req, res) {
     res.redirect("/")
 })
 
+app.get('/editar', function(req,res){
+    res.render('editar')
+})
+
+app.get('/editar', async function (req, res) {
+    const id = parseInt(req.query.id)
+    const dadosProdutos = await query("SELECT * FROM lancamentos WHERE id=?", [id])
+
+    if (dadosProdutos.length === 0) {
+        res.redirect('/')
+    }
+
+    console.log(dadosProdutos)
+
+    res.render('editar', {
+        descricao: dadosProdutos[0].descricao,
+        valor: dadosProdutos[0].valor,
+        tipo: dadosProdutos[0].tipo,
+        categoria: dadosProdutos[0].categoria,
+        dia: dadosProdutos[0].dia,
+        hora: dadosProdutos[0].hora
+    })
+})
+
 app.get('/adicionar', function (req, res) {
     res.render('adicionar')
 });
 
-app.post('/adicionar', async function (res, req) {
+app.post('/adicionar', async function (req, res) {
+    let descricao = req.body.titulo
+    let dia = req.body.dia
+    let hora = req.body.hora
+    let valor = req.body.valor
+    let tipo = req.body.tipo ? 0 : 1
+    let categoria = req.body.categoria
 
-    let valor = req.body.valor;
-    let tipo = req.body.tipo;
-    let descricao = req.body.titulo;
-    let categoria = req.body.categoria;
-    let data = req.body.data;
-    let hora = req.body.hora;
+    if (tipo == 0) {
+        valor *= -1
+    }
 
-    const dadosPage = {
+    const dadosPagina = {
         descricao,
         valor,
         tipo,
         categoria,
-        data,
-        hora
+        dia,
+        hora,
     }
 
-    try {
-        if (!valor || valor <= 0) throw new Error('Valor inválido')
-        if (!titulo) throw new Error('Insira um título')
-        const sql = 'insert into lancamentos(descricao, valor, tipo, categoria, dia, hora) values (?,?,?,?,?,?);'
-        const valores = [descricao, valor, tipo, categoria, dia, hora]
-        await query(sql, valores)
+    const sql = "INSERT INTO lancamentos (descricao, valor, tipo, categoria, dia, hora) VALUES (?,?,?,?,?,?);"
+    const valores = [descricao, valor, tipo, categoria, dia, hora]
 
+    await query(sql, valores)
 
-    } catch (e) {
-        dadosPage.mensagem = e.message;
-        dadosPage.cor = 'red'
-    }
-    res.render('adicionar', dadosPage)
+    dadosPagina.mensagem = "Produto cadastrado com sucesso"
+
+    res.render('adicionar', dadosPagina)
+    res.redirect('/')
 })
 
 app.listen(PORT, function () {

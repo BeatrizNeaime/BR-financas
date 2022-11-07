@@ -2,7 +2,7 @@
         margin-top: 2rem;
         width: 65%;">
     <div class="row" style="
-        gap: 32px;
+        gap: 15px;
     ">
         <div class="col" style="
         background-color: #fefefe;
@@ -36,10 +36,11 @@
                         font-family: 'Mulish', sans-serif;
                         font-size: 30px;
                         font-weight: 300;
-                    ">R$ 6000,00</p>
+                        color: #33cc95;
+                    ">R$ {{{entradas}}}</p>
             </div>
         </div>
-        <div class="col" style="background-color: #fefefe; border-radius: 6px;">
+        <div class="col" style="background-color: #fefefe; border-radius: 6px; width: 33%;">
             <div class="textos" style="
                     align-itens: center;
                     display: flex;
@@ -66,11 +67,12 @@
                         font-family: 'Mulish', sans-serif;
                         font-size: 30px;
                         font-weight: 300;
-                ">- R$ 6000,00</p>
+                ">R$ {{{saidas}}}</p>
             </div>
 
         </div>
 
+        {{#if helper}}
         <div class="col" style="
         background-color: #33cc95; border-radius: 6px;
         ">
@@ -96,7 +98,6 @@
                     <box-icon name='transfer-alt' color="#fefefe"></box-icon>
                 </div>
             </div>
-
             <div class="number" style="
                     width: 90%;
                 ">
@@ -105,301 +106,243 @@
                         font-family: 'Mulish', sans-serif;
                         font-size: 30px;
                         font-weight: 300;
-                    ">R$ 6000,00</p>
+                    ">R$ {{{total}}}</p>
+            </div>
+            {{else}}
+            <div class="col {{classe}}" style="
+        background-color: #cc4934; border-radius: 6px;
+        ">
+                <div class="textos" style="
+                    align-itens: center;
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 0 auto;
+                    padding: .8rem;
+                    width: 90%;
+                    
+                ">
+                    <div class="txt" style="
+                        text-align: center;
+                    ">
+                        <p style="
+                            color: #fefefe;
+                            font-family: 'Roboto Mono', monospace;
+                        ">Total</p>
+                    </div>
+
+                    <div class="icon">
+                        <box-icon name='transfer-alt' color="#fefefe"></box-icon>
+                    </div>
+                </div>
+                <div class="number" style="
+                    width: 90%;
+                ">
+                    <p style="
+                        color: #fefefe;
+                        font-family: 'Mulish', sans-serif;
+                        font-size: 30px;
+                        font-weight: 300;
+                    "> R$ {{{total}}}</p>
+                </div>
+                {{/if}}
+
             </div>
 
-        </div>
-    </div>
+            {{!------- BOTAO ADICIONAR -------}}
 
-    {{!------- BOTAO ADICIONAR -------}}
+            <!-- Button trigger modal -->
+            <div class="botao">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <a href="/adicionar/" class="link">Nova Transação</a>
+                </button>
+            </div>
+            {{!------- TABELA -------}}
 
-    <!-- Button trigger modal -->
-    <div class="botao">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <a href="/adicionar/" class="link">Nova Transação</a>
-        </button>
-    </div>
-    {{!------- TABELA -------}}
-
-    <div class="table-responsive" style="
+            <div class="table-responsive" style="
             margin: 4rem 0;
             width: 100%;
         ">
-        <table class="table">
-            <thead>
-                <tr style="
+                <table class="table">
+                    <thead>
+                        <tr style="
                         color: #7f7f7f;
                     ">
-                    <th scope="col" style="text-align: left"><i class='bx bx-edit-alt'></i> Título</th>
-                    <th scope="col" style="text-align: left"><i class='bx bx-credit-card-alt'></i> Valor</th>
-                    <th scope="col" style="text-align: left"><i class='bx bx-checkbox-checked'></i> Categoria</th>
-                    <th scope="col" style="text-align: left"><i class='bx bxs-calendar'></i> Data</th>
-                    <th scope="col" style="text-align: left"><i class='bx bx-time'></i> Hora</th>
-                    <th scope="col" style="text-align: left" class="oculto"></th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#if listaLancamentos}}
-                <tr class="linha">
-                    {{#each listaLancamentos}}
-                    <td>{{descricao}}</td>
-                    {{#if valor}}
-                    <td class="valor entrada">R${{valor}}</td>
-                    {{else}}
-                    <td class="valor"><span class="saida">-R${{valor}}</span></td>
-                    {{/if}}
-                    <td>{{categoria}}</td>
-                    <td>{{dia}}</td>
-                    <td>{{hora}}</td>
-                    <td class="oculto">
-                        <a href="/delete/produto/{{id}}" class="deletar">
-                            <i class='bx bx-x-circle'></i>
-                        </a>
-                        <a href="/editar/{{id}}" class="deletar e">
-                            <i class='bx bxs-edit'></i>
-                        </a>
-                    </td>
-                </tr>
-                {{/each}}
-                {{/if}}
-            </tbody>
-        </table>
-    </div>
-</div>
+                            <th scope="col" style="text-align: left"><i class='bx bx-edit-alt'></i> Título</th>
+                            <th scope="col" style="text-align: left"><i class='bx bx-credit-card-alt'></i> Valor</th>
+                            <th scope="col" style="text-align: left"><i class='bx bx-checkbox-checked'></i> Categoria
+                            </th>
+                            <th scope="col" style="text-align: left"><i class='bx bxs-calendar'></i> Data</th>
+                            <th scope="col" style="text-align: left"><i class='bx bx-time'></i> Hora</th>
+                            <th scope="col" style="text-align: left" class="oculto"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if listaLancamentos}}
+                        {{#each listaLancamentos}}
+                        <tr class="linha">
+                            <td>{{descricao}}</td>
+                            {{#if tipo}}
+                            <td><span style="color: #33cc95;">R${{valor}}</span></td>
+                            {{else}}
+                            <td><span style="color: #cc4934;">R${{valor}}</span></td>
+                            {{/if}}
+                            <td>{{categoria}}</td>
+                            <td>{{dia}}</td>
+                            <td>{{hora}}</td>
+                            <td class="oculto">
+                                <a href="/delete/produto/{{id}}" class="deletar">
+                                    <i class='bx bx-x-circle'></i>
+                                </a>
+                                <a href="/editar" class="deletar e">
+                                    <i class='bx bxs-edit'></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                        {{/if}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-<style>
-    .botao {
-        align-items: center;
-        display: flex;
-        justify-content: flex-end;
-        margin: 2rem 0;
-    }
+        <style>
+            .botao {
+                align-items: center;
+                display: flex;
+                justify-content: flex-end;
+                margin: 2rem 0;
+            }
 
-    .botao button {
-        background-color: #33cc95;
-        border: none;
-    }
+            .botao button {
+                background-color: #33cc95;
+                border: none;
+            }
 
-    .botao button:hover {
-        background-color: #49b99d;
-    }
+            .botao button:hover {
+                background-color: #49b99d;
+            }
 
-    .btns {
-        align-items: center;
-        display: flex;
-        justify-content: space-evenly;
-        width: 80%;
-    }
+            .btntextos:hover {
+                cursor: pointer;
+            }
 
-    .btntextos:hover {
-        cursor: pointer;
-    }
+            .deletar {
+                color: #cc4934;
+                text-decoration: none;
+                transition: 1s;
+            }
 
-    .cancel,
-    .cancel:hover {
-        background-color: #33cc95;
-        border: none;
-    }
+            .deletar:hover {
+                color: #cc4934;
+                transform: rotateX(80deg);
+            }
 
-    .cat {
-        margin: 1rem 0;
-        width: 50%;
-    }
+            .dowArrow {
+                background-color: royalblue;
+                align-items: center;
+                display: flex;
+                height: 100%;
+                justify-content: space-evenly;
+            }
 
-    .cat select {
-        background-color: #E7E9EE;
-        height: 2rem;
-    }
+            .e {
+                color: #7f7f7f;
+            }
 
-    .date,
-    .hora {
-        align-itens: center;
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 16px;
-        text-align: left;
-        width: 40%;
-    }
+            .e:hover {
+                color: #49b99d;
+            }
 
-    .deletar {
-        color: #cc4934;
-        text-decoration: none;
-        transition: 1s;
-    }
+            .entrada {
+                color: #33cc95;
+            }
 
-    .deletar:hover {
-        color: #cc4934;
-        transform: rotateX(80deg);
-    }
+            .excluirbtn,
+            .excluirbtn:hover {
+                color: #fefefe;
+                text-decoration: none;
+            }
 
-    .dowArrow {
-        background-color: royalblue;
-        align-items: center;
-        display: flex;
-        height: 100%;
-        justify-content: space-evenly;
-    }
+            .excluirbtn button {
+                background-color: #7f7f7f;
+            }
 
-    .e {
-        color: #7f7f7f;
-    }
+            .linha {
+                background-color: rgba(254, 254, 254, .6);
+                margin-bottom: 1rem;
+            }
 
-    .e:hover {
-        color: #49b99d;
-    }
+            .link-btn {
+                background-color: #33cc95 !important;
+                color: #fefefe;
+                text-decoration: none;
+            }
 
-    .entrada {
-        color: #33cc95;
-    }
+            .link {
+                color: #fefefe;
+                text-decoration: none;
+            }
 
-    .excluirbtn,
-    .excluirbtn:hover {
-        color: #fefefe;
-        text-decoration: none;
-    }
+            .link:hover {
+                color: #fefefe;
+            }
 
-    .excluirbtn button {
-        background-color: #7f7f7f;
-    }
+            .oculto {
+                color: #cc4934;
+                transition: ease 1s;
+            }
 
-    .first-row-input {
-        align-items: center;
-        display: flex;
-        justify-content: flex-start;
-    }
+            .oculto:hover {
+                cursor: pointer;
+            }
 
-    .inputers {
-        align-items: center;
-        display: flex;
-        gap: 20%;
-        justify-content: flex-start;
-        width: 80%;
-    }
+            .row-input {
+                align-items: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                text-align: center;
+                width: 80%
+            }
 
-    .last-row-input {
-        align-items: center;
-        display: flex;
-        justify-content: space-evenly;
-        width: 80%;
-    }
+            .saida {
+                color: #cc4934;
+            }
 
-    .lastinput {
-        display: flex;
-        flex-direction: column;
-    }
+            table {
+                border-spacing: 2rem;
+            }
 
-    .linha {
-        background-color: #fefefe;
-    }
+            tbody {
+                text-align: left;
+            }
 
-    .link-btn {
-        background-color: #33cc95 !important;
-        color: #fefefe;
-        text-decoration: none;
-    }
+            thead tr {
+                margin-bottom: 1rem;
+            }
 
-    .link {
-        color: #fefefe;
-        text-decoration: none;
-    }
+            tr {
+                border-radius: 6px;
+                row-gap: 1rem;
+            }
 
-    .link:hover {
-        color: #fefefe;
-    }
+            .Ttitulo {
+                align-itens: center;
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 16px;
+                text-align: left;
+                width: 80%;
+            }
 
 
-    .modal-dialog {
-        background-color: #F9F6F6;
-        border-radius: 6px;
-    }
+            @media screen and (max-width: 425px) {
+                .botao {
+                    justify-content: center;
+                }
 
-    .modal-header {
-        border: none;
-    }
-
-    .oculto {
-        color: #cc4934;
-        transition: ease 1s;
-    }
-
-    .oculto:hover {
-        cursor: pointer;
-    }
-
-    .row-input {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        text-align: center;
-        width: 80%
-    }
-
-    .saida {
-        color: #cc4934;
-    }
-
-    table {
-        border-spacing: 2rem;
-    }
-
-    tbody {
-        text-align: left;
-    }
-
-    thead tr {
-        margin-bottom: 1rem;
-    }
-
-    tr {
-        border-radius: 6px;
-        row-gap: 1rem;
-    }
-
-    .Ttitulo {
-        align-itens: center;
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 16px;
-        text-align: left;
-        width: 80%;
-    }
-
-    .Ttitulo input,
-    .data-input,
-    .hora-input {
-        border: none;
-        border-radius: 6px;
-        background-color: #E7E9EE;
-        height: 2rem;
-        padding: 10px;
-    }
-
-    .valor-input {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        text-align: left;
-        width: 40%;
-    }
-
-    .valor-input input {
-        border: none;
-        border-radius: 6px;
-        background-color: #E7E9EE;
-        height: 2rem;
-        padding: 10px;
-        width: 100%;
-    }
-
-    @media screen and (max-width: 425px) {
-        .botao {
-            justify-content: center;
-        }
-
-        .table-responsive {
-            width: 90vw !important;
-        }
-    }
-</style>
+                .table-responsive {
+                    width: 90vw !important;
+                }
+            }
+        </style>
