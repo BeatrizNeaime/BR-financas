@@ -38,7 +38,6 @@ async function query(sql = '', values = []) {
 
 app.get("/", async function (req, res) {
     const listaLancamentos = await query('SELECT * FROM lancamentos')
-
     let entradas = 0, saidas = 0, total = 0
     for (let i = 0; i < listaLancamentos.length; i++) {
         if (parseFloat(listaLancamentos[i].valor) >= 0) {
@@ -47,6 +46,7 @@ app.get("/", async function (req, res) {
             saidas += parseFloat(listaLancamentos[i].valor)
         }
     }
+
 
     let helper
     total = entradas + saidas
@@ -65,6 +65,10 @@ app.get("/", async function (req, res) {
     })
 })
 
+app.get('/sobre', function(req,res){
+    res.render('sobre')
+})
+
 app.get('/contato', function (req, res) {
     res.render('contato')
 })
@@ -78,7 +82,7 @@ app.get("/delete/produto/:id", async function (req, res) {
     res.redirect("/")
 })
 
-app.get('/editar', function(req,res){
+app.get('/editar', function (req, res) {
     res.render('editar')
 })
 
@@ -96,10 +100,10 @@ app.get('/editar/:id', async function (req, res) {
     })
 })
 
-app.post('/editar', async function(req,res){
-    let {id, valor, tipo, categoria, titulo, dia, hora} = req.body
-    const dados ={
-        objItem: {id:id, descricao:titulo, valor:valor, tipo:tipo, categoria:categoria, dia:dia, hora:hora}
+app.post('/editar', async function (req, res) {
+    let { id, valor, tipo, categoria, titulo, dia, hora } = req.body
+    const dados = {
+        objItem: { id: id, descricao: titulo, valor: valor, tipo: tipo, categoria: categoria, dia: dia, hora: hora }
     }
 
     let sql = 'UPDATE lancmentos set valor=?, titulo=?, tipo=?, categoria=?, dia=?, hora=? WHERE id=?';
