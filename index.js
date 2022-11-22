@@ -65,12 +65,42 @@ app.get("/", async function (req, res) {
     })
 })
 
-app.get('/sobre', function(req,res){
+app.get('/sobre', function (req, res) {
     res.render('sobre')
 })
 
-app.get('/contato', function (req, res) {
-    res.render('contato')
+app.get('/contato', async function (req, res) {
+    const contatos = await query('SELECT * FROM contatos')
+
+    let nome = contatos[0].nome
+    let email = contatos[0].email
+    let mensagem = contatos[0].mensagem
+
+    res.render('contato', { 
+        contatos: contatos,
+        nome: nome,
+        email: email,
+        mensagem: mensagem
+    })
+}) 
+ 
+app.post('/contato', async function (req, res) {
+    let mensagem = req.body.mensagem
+    let email = req.body.email
+    let nome = req.body.nome
+
+    const dadosPagina = {
+        mensagem,
+        email,
+        nome
+    }
+
+    const sql = "INSERT INTO contatos (email, nome, mensagem) VALUES (?,?,?);"
+    const valores = [email, nome, mensagem]
+
+    await query(sql, valores)
+    res.render('contato', dadosPagina)
+    res.redirect('/contato')
 })
 
 app.get("/delete/produto/:id", async function (req, res) {
@@ -80,10 +110,6 @@ app.get("/delete/produto/:id", async function (req, res) {
     }
 
     res.redirect("/")
-})
-
-app.get('/editar', function (req, res) {
-    res.render('editar')
 })
 
 app.get('/editar/:id', async function (req, res) {
@@ -97,7 +123,7 @@ app.get('/editar/:id', async function (req, res) {
     const objItem = dadosItem[0]
     res.render('editar', {
         objItem
-    })
+    }) 
 })
 
 app.post('/editar', async function (req, res) {
@@ -117,7 +143,7 @@ app.post('/editar', async function (req, res) {
 
 app.get('/adicionar', function (req, res) {
     res.render('adicionar')
-});
+}); 
 
 app.post('/adicionar', async function (req, res) {
     let descricao = req.body.titulo

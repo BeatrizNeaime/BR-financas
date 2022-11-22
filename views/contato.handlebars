@@ -1,66 +1,131 @@
-<div class="caixa">
-    <div class="container text-center caixote">
-        <div class="row">
-            <div class="col">
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0 otacaixa">
-                        <div class="col-md-4">
-                            <img src="assets/img/python.jpg" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
+<div class="aa">
+    <div class="caixa">
+        <div class="alinhar">
+            <div class="container text-center">
+                <div class="row">
+                    {{#if contatos}}
+                    {{#each contatos}}
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
                             <div class="card-body">
-                                <h5 class="card-title">Beatriz Neaime</h5>
-                                <p class="card-text">Aprendendo desenvolvimento web front-end. Bolsista pelo Instituto
-                                    Federal do Sul de Minas Gerais</p>
-                                <p class="card-text"><small class="text-muted">contato:
-                                        beatriz.neaime@alunos.ifsuldeminas.edu.br </small></p>
+                                <h5 class="card-title">{{nome}}</h5>
+                                <p class="card-text">{{mensagem}}</p>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4 otacaixa">
-                            <img src="assets/img/java.jpg" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Rebeca Rosa</h5>
-                                <p class="card-text">Em aprendizado em desenvolvimento back-end. Estagiária na empresa
-                                    BigData Corp</p>
-                                <p class="card-text"><small class="text-muted">contato:
-                                        rebeca.rosa@alunos.ifsuldeminas.edu.br </small></p>
-                            </div>
-                        </div>
-                    </div>
+                    {{/each}}
+                    {{/if}}
                 </div>
             </div>
         </div>
+        <form action="/contato" method="post" class="yes">
+            <h2>Deixe sua mensagem</h2>
+            <div class="campos">
+                <div class="input-group mb-3">
+                    <span class="input-group-text trem" id="basic-addon1">Nome</span>
+                    <input type="text" class="form-control" placeholder="Luis da Silva" aria-label="Username"
+                        aria-describedby="basic-addon1" name="nome" required>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text trem" id="basic-addon1">E-mail</span>
+                    <input type="text" class="form-control" placeholder="exemplo@exemplo.com" aria-label="Username"
+                        aria-describedby="basic-addon1" name="email" required>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text trem">Mensagem</span>
+                <textarea class="form-control" value="{{mensagem}}" name="mensagem" required></textarea>
+            </div>
+            <div class="btn">
+                <button type="submit">Enviar</button>
+                <button type="reset">Limpar</button>
+            </div>
+        </form>
     </div>
 </div>
 
+{{!-- <div class="caixa">
+    <div class="box">
+        <h1>Contato</h1>
+        <div class="container text-center caixote">
+            <div class="cards">
+
+            </div>
+        </div>
+
+    </div>
+
+</div> --}}
+
+
 <style>
-    .caixa {
+
+    .alinhar{
         align-items: center;
         display: flex;
+        justify-content: space-evenly;
+    }
+    .text-center {
         height: 90vh;
-        justify-items: space-evenly;
+        width: 90%;
     }
 
-    .otacaixa {
+    .aa {
         align-items: center;
         display: flex;
         justify-content: space-evenly;
     }
 
-    @media screen and(max-width: 425px) {
-        .col {
-            align-items: center;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: space-evenly;
+    .btn {
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+        width: 60%;
+    }
+
+    button {
+        background-color: #33cc95;
+        border: none;
+        border-radius: 6px;
+    }
+
+    .caixa {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-items: space-evenly;
+        width: 90%;
+    }
+
+    .container {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+
+    .campos {
+        align-items: center;
+        display: flex;
+        gap: 2%;
+        justify-content: space-evenly;
+    }
+
+    .row {
+        gap: 2%;
+    }
+
+    .yes {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        margin: 3rem;
+    }
+
+    @media screen and (max-width: 425px) {
+        .trem {
+            display: none;
         }
     }
 </style>

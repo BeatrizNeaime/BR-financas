@@ -1,47 +1,78 @@
-<div class="container-md">
-    <div class="caixa">
-        <div class="title">
-            <h1>Sobre a BR Finanças</h1>
-        </div>
-        <div class="sobre">
-            <p>
-                Com o ojetivo de auxilia-lo no controle financeiro, a BR Finanças é uma aplicação capaz de
-                fazê-lo enxergar seus gastos mais facilmente, para que possa ver para onde vai seu dinheiro.
-                Desenvolvido por Beatriz Neaime e Rebeca Rosa, alunas do 8º período de Engenharia de Computação no
-                Instituto Federal do Sul de Minas, campus Poços de Caldas, para a disciplina de Programação Web II.
-            </p>
-        </div>
-        <div class="imagem">
-            <img src="/assets/img/ok_logo_eng_comp_fundo_claro_engcomp_if.png" alt="">
+<div class="aa">
+    <div class="container text-center caixote">
+        <div class="row">
+            <div class="col">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0 otacaixa">
+                        <div class="col-md-4">
+                            <img src="assets/img/python.jpg" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Beatriz Neaime</h5>
+                                <p class="card-text">Aprendendo desenvolvimento web front-end. Bolsista pelo
+                                    Instituto
+                                    Federal do Sul de Minas Gerais</p>
+                                <p class="card-text"><small class="text-muted">contato:
+                                        beatriz.neaime@alunos.ifsuldeminas.edu.br </small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4 otacaixa">
+                            <img src="assets/img/java.jpg" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Rebeca Rosa</h5>
+                                <p class="card-text">Em aprendizado em desenvolvimento back-end. Estagiária na
+                                    empresa
+                                    BigData Corp</p>
+                                <p class="card-text"><small class="text-muted">contato:
+                                        rebeca.rosa@alunos.ifsuldeminas.edu.br </small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
+
+
 <style>
+
+    .aa{
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+        height: 90vh;
+    }
     .caixa {
         align-items: center;
         display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        margin: 2rem;
-        text-align: center;
-        height: 80vh;
+        height: 90vh;
+        margin: 3rem;
+        justify-items: space-evenly;
     }
 
-    .imagem{
+    .otacaixa {
         align-items: center;
         display: flex;
         justify-content: space-evenly;
-        margin: 2rem;
-        width: 100%;
     }
 
-    .imagem img{
-        width: 100%;
-    }
-
-    .sobre {
-        margin: 2rem;
-        text-align: justify;
+    @media screen and(max-width: 425px) {
+        .col {
+            align-items: center;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-evenly;
+        }
     }
 </style>
