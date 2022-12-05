@@ -6,8 +6,8 @@
             <div class="col">
                 <div class="otacaixa">
                     <div class="Ttitulo marginb">
-                        <label for="titulo-transacao">Título da Transação</label>
-                        <input type="text" placeholder="Coxinha" value="{{descricao}}" name="titulo" class="entrando"
+                        <label>Título da Transação</label>
+                        <input type="text" value="{{descricao}}" name="titulo" class="entrando"
                             required />
                     </div>
                     <div class="inputers container-fluid">
@@ -31,10 +31,9 @@
                                 Saída
                             </label>
                             {{#if tipo}}
-                            <input class="form-check-input" type="checkbox" value="0" name="tipo" id="flexCheckChecked"
-                                checked>
-                            {{else}}
                             <input class="form-check-input" type="checkbox" value="0" name="tipo" id="flexCheckChecked">
+                            {{else}}
+                            <input class="form-check-input" type="checkbox" value="0" name="tipo" id="flexCheckChecked" checked>
                             {{/if}}
                         </div>
                     </div>

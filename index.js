@@ -76,14 +76,14 @@ app.get('/contato', async function (req, res) {
     let email = contatos[0].email
     let mensagem = contatos[0].mensagem
 
-    res.render('contato', { 
+    res.render('contato', {
         contatos: contatos,
         nome: nome,
         email: email,
         mensagem: mensagem
     })
-}) 
- 
+})
+
 app.post('/contato', async function (req, res) {
     let mensagem = req.body.mensagem
     let email = req.body.email
@@ -112,7 +112,7 @@ app.get("/delete/produto/:id", async function (req, res) {
     res.redirect("/")
 })
 
-app.get('/editar/:id', async function (req, res) {
+app.get('/editar', async function (req, res) {
     const id = parseInt(req.query.id)
     const dadosItem = await query("SELECT * FROM lancamentos WHERE id=?", [id])
 
@@ -120,30 +120,40 @@ app.get('/editar/:id', async function (req, res) {
         res.redirect('/')
     }
 
-    const objItem = dadosItem[0]
     res.render('editar', {
-        objItem
-    }) 
+        id: dadosItem[0].id,
+        descricao: dadosItem[0].descricao,
+        dia: dadosItem[0].dia,
+        hora: dadosItem[0].hora,
+        tipo: dadosItem[0].tipo,
+        valor: dadosItem[0].valor,
+        categoria: dadosItem[0].categoria
+    })
 })
 
 app.post('/editar', async function (req, res) {
-    let { id, valor, tipo, categoria, titulo, dia, hora } = req.body
+    let { id, valor, tipo, categoria, descricao, dia, hora } = req.body
     const dados = {
-        objItem: { id: id, descricao: titulo, valor: valor, tipo: tipo, categoria: categoria, dia: dia, hora: hora }
+        id,
+        descricao,
+        valor,
+        tipo,
+        categoria,
+        dia,
+        hora
     }
 
-    let sql = 'UPDATE lancmentos set valor=?, titulo=?, tipo=?, categoria=?, dia=?, hora=? WHERE id=?';
-    let valores = [valor, titulo, tipo, categoria, dia, hora, id]
+    let sql = 'UPDATE lancamentos set valor=?, descricao=?, tipo=?, categoria=?, dia=?, hora=? WHERE id=?';
+    let valores = [valor, descricao, tipo, categoria, dia, hora, id]
 
     await query(sql, valores)
 
-    res.render('editar', dados)
     res.redirect('/')
 })
 
 app.get('/adicionar', function (req, res) {
     res.render('adicionar')
-}); 
+});
 
 app.post('/adicionar', async function (req, res) {
     let descricao = req.body.titulo
