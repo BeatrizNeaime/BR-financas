@@ -1,66 +1,71 @@
-<h1 style="text-align: center;">Editar produto</h1>
-
-<form action="/editar" method="POST" class="caixa">
-    <div class="container text-center">
-        <div class="row">
-            <div class="col">
-                <div class="otacaixa">
-                    <div class="Ttitulo marginb">
-                        <label>Título da Transação</label>
-                        <input type="text" value="{{descricao}}" name="titulo" class="entrando"
-                            required />
-                    </div>
-                    <div class="inputers container-fluid">
-                        <div class="date">
-                            <label for="dia">Data</label>
-                            <input type="date" class="data-input entrando" name="dia" value="{{dia}}" required />
+<div class="caixote">
+    <h1 style="text-align: center;">Editar produto</h1>
+    <form action="/editar" method="POST" class="caixa">
+        {{#if alerta}}
+        <h3 class="alerta" style="color: {{cor}};" >{{alerta}}</h3>
+        {{/if}}
+        <div class="container text-center">
+            <div class="row">
+                <div class="col">
+                    <div class="otacaixa">
+                        <div class="Ttitulo marginb">
+                            <label>Título da Transação</label>
+                            <input type="text" value="{{descricao}}" name="titulo" class="entrando" required />
                         </div>
-                        <div class="hora container-fluid">
-                            <label for="hora">Hora</label>
-                            <input type="time" class="hora-input entrando" name="hora" value="{{hora}}" required />
+                        <div class="inputers container-fluid">
+                            <div class="date">
+                                <label for="dia">Data</label>
+                                <input type="date" class="data-input entrando" name="dia" value="{{dia}}" required />
+                            </div>
+                            <div class="hora container-fluid">
+                                <label for="hora">Hora</label>
+                                <input type="time" class="hora-input entrando" name="hora" value="{{hora}}" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="tipo-transacao otacaixa">
+                        <label for="tipo">Tipo de Transação</label>
+                        <div class="btns">
+                            <div class="form-check">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Saída
+                                </label>
+                                {{#if tipo}}
+                                <input class="form-check-input" type="checkbox" value="0" name="tipo"
+                                    id="flexCheckChecked">
+                                {{else}}
+                                <input class="form-check-input" type="checkbox" value="0" name="tipo"
+                                    id="flexCheckChecked" checked>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="otacaixa">
+                        <div class="valor-input">
+                            <label for="valor" style="text-align: left">Valor</label>
+                            <input type="number" placeholder="400.00" value="{{valor}}" name="valor" step="any"
+                                class="entrando" required />
+                        </div>
+                        <div class="cat">
+                            <label for="categoria" style="text-align: left">Categoria</label>
+                            <input type="text" placeholder="Alimentação" value="{{categoria}}" name="categoria"
+                                step="any" class="entrando" required />
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="tipo-transacao otacaixa">
-                    <label for="tipo">Tipo de Transação</label>
-                    <div class="btns">
-                        <div class="form-check">
-                            <label class="form-check-label" for="flexCheckChecked">
-                                Saída
-                            </label>
-                            {{#if tipo}}
-                            <input class="form-check-input" type="checkbox" value="0" name="tipo" id="flexCheckChecked">
-                            {{else}}
-                            <input class="form-check-input" type="checkbox" value="0" name="tipo" id="flexCheckChecked" checked>
-                            {{/if}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="otacaixa">
-                    <div class="valor-input">
-                        <label for="valor" style="text-align: left">Valor</label>
-                        <input type="number" placeholder="400.00" value="{{valor}}" name="valor" step="any"
-                            class="entrando" required />
-                    </div>
-                    <div class="cat">
-                        <label for="categoria" style="text-align: left">Categoria</label>
-                        <input type="text" placeholder="Alimentação" value="{{categoria}}" name="categoria" step="any"
-                            class="entrando" required />
-                    </div>
-                </div>
+            <div class="fim container-fluid">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a href="/"
+                        class="link">Cancelar</a></button>
+                <button type="submit" class="btn btn-primary add">Salvar</button>
+                <input type="hidden" name="id" value="{{id}}">
             </div>
         </div>
-        <div class="fim container-fluid">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a href="/"
-                    class="link">Cancelar</a></button>
-            <button type="submit" class="btn btn-primary add">Salvar</button>
-            <input type="hidden" name="id" value="{{id}}">
-        </div>
-</form>
+    </form>
 </div>
 
 <style>
@@ -78,8 +83,9 @@
     .caixa {
         align-items: center;
         display: flex;
+        flex-direction: column;
         justify-content: space-evenly;
-        height: 93vh;
+        height: 70vh;
     }
 
     .date,

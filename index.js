@@ -117,7 +117,7 @@ app.get('/editar', async function (req, res) {
     const dadosItem = await query("SELECT * FROM lancamentos WHERE id=?", [id])
 
     if (dadosItem.length === 0) {
-        res.redirect('/')
+        res.redirect('/') 
     }
 
     res.render('editar', {
@@ -132,9 +132,9 @@ app.get('/editar', async function (req, res) {
 })
 
 app.post('/editar', async function (req, res) {
-    let { id, valor, tipo, categoria, descricao, dia, hora } = req.body
+    let { id, descricao, dia, hora, tipo, valor, categoria} = req.body
     const dados = {
-        id,
+        alerta:'',
         descricao,
         valor,
         tipo,
@@ -143,12 +143,23 @@ app.post('/editar', async function (req, res) {
         hora
     }
 
+    console.log(`---> ${req.body.descricao}`)
+
     let sql = 'UPDATE lancamentos set valor=?, descricao=?, tipo=?, categoria=?, dia=?, hora=? WHERE id=?';
     let valores = [valor, descricao, tipo, categoria, dia, hora, id]
 
-    await query(sql, valores)
-
-    res.redirect('/')
+    try{
+        if(!descricao) throw new Error('Título inválido!')
+        if(!categoria) throw new Error('Categoria inválida!')
+        if(!valor) throw new Error('Valor inválido!')
+        await query(sql, valores)
+        dados.alerta = 'Transação atualizada com sucesso!'
+        dados.cor = "#33cc95"
+    } catch(e){
+        dados.alerta = e.message
+        dados.cor = 'red'
+    }
+    res.render('/editar', dados)
 })
 
 app.get('/adicionar', function (req, res) {
