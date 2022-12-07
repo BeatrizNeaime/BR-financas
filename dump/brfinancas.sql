@@ -3,14 +3,19 @@ use brfinancas;
 
 create table lancamentos(
 	id int not null auto_increment,
+    usuario int not null,
     descricao varchar(100),
     valor decimal not null,
     tipo int,
     categoria varchar(100),
-    dia date,
-    hora time,
-    PRIMARY KEY(id)
+    dia varchar(100),
+    hora varchar(100),
+    PRIMARY KEY(id),
+    foreign key(usuario) references users(id)
 );
+
+show tables;
+select * from users;
 
 create table contatos(
 	id int not null auto_increment,
@@ -26,8 +31,11 @@ insert into lancamentos(descricao, valor, tipo, categoria, dia, hora) value ("Fi
 
 insert into contatos(email, nome, mensagem) value ("teste@teste.com", "Bea", "testando 123...");
 
-select * from contatos;
-
-alter table lancamentos CHANGE dia dia varchar(50);
-alter table lancamentos CHANGE hora hora varchar(6);
-alter table lancamentos CHANGE valor valor decimal;
+CREATE TABLE users(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR (100) NOT NULL,
+    email VARCHAR (100) NOT NULL,
+    senha INTEGER NOT NULL
+);
+alter table lancamentos add email varchar(100) after id;
+alter table lancamentos add constraint email foreign key(email) references users(email);

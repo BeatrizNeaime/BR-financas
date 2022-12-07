@@ -1,0 +1,189 @@
+<div class="caixa">
+
+    <div class="meio">
+        <div class="left">
+            <img src="assets/img/BANNER.png" alt="" class="foto-banner">
+        </div>
+        <div class="right">
+            <div class="detalhe">
+                <div class="box">
+                    <div class="logo">
+                        <div class="txt">
+                            <box-icon name='cross' style="
+                            margin-right: 1px;
+                            rotate: 45deg;
+                        " color="#33cc95"></box-icon>
+
+                            <a class="navbar-brand" href="/">
+                                BR Finanças
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="loginson">
+                    <p class="title">{{titulo}}</p>
+                    <form action="/login" method="post">
+                        <div class="caixote">
+                            <div class="inputs">
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control input " id="floatingInput"
+                                    placeholder="exemplo@exemplo.com" name="email" value="{{email}}" autocomplete="off" required>
+                                <label for="floatingInput">e-mail</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control input " id="floatingInput"
+                                    placeholder="123" name="senha" value="{{senha}}" autocomplete="off" required>
+                                <label for="floatingInput">senha</label>
+                            </div>
+                        </div>
+                        <div class="btns">
+                            <button type="submit">Acessar minha conta</button>
+                            <p class="nLogin">Ainda não tem uma conta? <a href="/cadastro">Cadastre-se</a></p>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btns {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        margin-bottom: 1rem;
+    }
+
+    button {
+        background-color: #33cc95;
+        border: none;
+        border-radius: 6px;
+        font-family: 'Mulish', sans-serif;
+        padding: 10px;
+    }
+
+    button:hover {
+        background-color: #49b99d;
+    }
+
+    .caixa {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .detalhe {
+        background-color: #c5ccd3;
+        border-radius: 6px;
+        box-shadow: 10px 10px 6px -3px rgba(135, 132, 135, 0.41);
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        width: 60%;
+    }
+
+    .foto-banner {
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .input,
+    .input:focus {
+        background-color: #dfe1e4;
+    }
+
+    header,
+    footer {
+        display: none;
+    }
+
+    .left {
+        width: 35%;
+    }
+
+    .left,
+    .right {
+        height: 100%;
+    }
+
+    .logo {
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+        height: 5rem;
+        width: 15rem;
+    }
+
+    .meio {
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+        height: 100vh;
+        width: 100%;
+    }
+
+    .nLogin {
+        font-size: 10px;
+        margin: 1rem;
+    }
+
+    .right {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        width: 79%;
+    }
+
+    .title {
+        font-weight: 200;
+        text-align: center;
+    }
+
+    .txt {
+        font-size: 30px;
+        font-weight: 300;
+    }
+
+    .txt,
+    .meio,
+    .right {
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    @media screen and (max-width: 768px) {
+
+        .caixote{
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        .inputs{
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            width: 80%;
+        }
+
+        .left {
+            display: none;
+        }
+
+        .right {
+            height: 90vh;
+            width: 100%;
+        }
+    }
+</style>
