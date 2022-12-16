@@ -61,10 +61,10 @@ app.use("*", async function (req, res, next) {
 /* --- MÉTODOS GET --- */
 
 app.get("/", async function (req, res) {
-    if (!req.body.usuario) {
+    if (!req.session.usuario) {
         res.redirect("/login")
     } else {
-        const listaLancamentos = await query('SELECT * FROM lancamentos WHERE usuario = ?', [usuario_id])
+        const listaLancamentos = await query('SELECT * FROM lancamentos WHERE usuario = ?', [req.session.usuario.id])
         let entradas = 0, saidas = 0, total = 0
         for (let i = 0; i < listaLancamentos.length; i++) {
             if (parseFloat(listaLancamentos[i].valor) >= 0) {
@@ -73,7 +73,6 @@ app.get("/", async function (req, res) {
                 saidas += parseFloat(listaLancamentos[i].valor)
             }
         }
-
 
         let helper
         total = entradas + saidas
@@ -88,7 +87,9 @@ app.get("/", async function (req, res) {
             entradas: entradas,
             saidas: saidas,
             total: total,
-            helper: helper
+            helper: helper,
+            nome: req.session.usuario.nome,
+            userid: req.session.usuario.id
         })
     }
 })
@@ -100,54 +101,68 @@ app.get('/login', function (req, res) {
 })
 
 app.get('/sobre', function (req, res) {
-    res.render('sobre')
+    if (!req.session.usuario) {
+        res.redirect("/login")
+    } else {
+        res.render('sobre')
+    }
 })
 
 app.get('/contato', async function (req, res) {
-    const contatos = await query('SELECT * FROM contatos')
+    if (!req.session.usuario) {
+        res.redirect("/login")
+    } else {
+        const contatos = await query('SELECT * FROM contatos')
 
-    let nome = contatos[0].nome
-    let email = contatos[0].email
-    let mensagem = contatos[0].mensagem
-
-    res.render('contato', {
-        contatos: contatos,
-        nome: nome,
-        email: email,
-        mensagem: mensagem
-    })
+        res.render('contato', {
+            contatos
+        })
+    }
 })
 
 app.get("/delete/produto/:id", async function (req, res) {
-    const id = parseInt(req.params.id)
-    if (!isNaN(id) && id > 0) {
-        await query("DELETE FROM lancamentos WHERE id=?", [id])
-    }
+    if (!req.session.usuario) {
+        res.redirect("/login")
+    } else {
+        const id = parseInt(req.params.id)
+        if (!isNaN(id) && id > 0) {
+            await query("DELETE FROM lancamentos WHERE id=?", [id])
+        }
 
-    res.redirect("/")
+        res.redirect("/")
+    }
 })
 
 app.get('/editar', async function (req, res) {
-    const id = parseInt(req.query.id)
-    const dadosItem = await query("SELECT * FROM lancamentos WHERE id=?", [id])
+    if (!req.session.usuario) {
+        res.redirect("/login")
+    } else {
+        const id = parseInt(req.query.id)
+        const dadosItem = await query("SELECT * FROM lancamentos WHERE id=?", [id])
 
-    if (dadosItem.length === 0) {
-        res.redirect('/')
+        if (dadosItem.length === 0) {
+            res.redirect('/')
+        }
+
+        res.render('editar', {
+            id: dadosItem[0].id,
+            descricao: dadosItem[0].descricao,
+            dia: dadosItem[0].dia,
+            hora: dadosItem[0].hora,
+            tipo: dadosItem[0].tipo,
+            valor: dadosItem[0].valor,
+            categoria: dadosItem[0].categoria
+        })
     }
-
-    res.render('editar', {
-        id: dadosItem[0].id,
-        descricao: dadosItem[0].descricao,
-        dia: dadosItem[0].dia,
-        hora: dadosItem[0].hora,
-        tipo: dadosItem[0].tipo,
-        valor: dadosItem[0].valor,
-        categoria: dadosItem[0].categoria
-    })
 })
 
 app.get('/adicionar', function (req, res) {
-    res.render('adicionar')
+    if (!req.session.usuario) {
+        res.redirect("/login")
+    } else {
+        res.render('adicionar')
+    }
+
 })
 
 app.get('/cadastro', function (req, res) {
@@ -162,10 +177,25 @@ app.get('/logout', function (req, res) {
     res.redirect('/login')
 })
 
+app.get('/editar-perfil', async function (req, res) {
+    if (!req.session.usuario) {
+        res.redirect("/login")
+    } else {
+        const id = req.session.usuario.id
+        const r = await query('SELECT * FROM users WHERE id = ?', id)
+        res.render('editar-perfil', {
+            nome: r[0].nome,
+            email: r[0].email,
+            senha: r[0].senha
+        })
+    }
+})
+
 /* --- MÉTODOS POST ---*/
 
 app.post('/editar', async function (req, res) {
-    let { id, descricao, dia, hora, tipo, valor, categoria } = req.body
+    let { id, descricao, dia, hora, valor, categoria, tipo } = req.body
+    console.log(categoria)
     const dados = {
         alerta: '',
         descricao,
@@ -176,21 +206,16 @@ app.post('/editar', async function (req, res) {
         hora
     }
 
-    console.log(`---> ${req.body.descricao}`)
-
-    let sql = 'UPDATE lancamentos set valor=?, descricao=?, tipo=?, categoria=?, dia=?, hora=? WHERE id=?';
-    let valores = [valor, descricao, tipo, categoria, dia, hora, id]
-
     try {
         if (!descricao) throw new Error('Título inválido!')
         if (!categoria) throw new Error('Categoria inválida!')
         if (!valor) throw new Error('Valor inválido!')
+        let sql = 'UPDATE lancamentos SET valor=?, descricao=?, tipo=?, categoria=?, dia=?, hora=? WHERE id=?';
+        let valores = [valor, descricao, tipo, categoria, dia, hora, id]
         await query(sql, valores)
-        dados.alerta = 'Transação atualizada com sucesso!'
-        dados.cor = "#33cc95"
+        res.redirect('/')
     } catch (e) {
         dados.alerta = e.message
-        dados.cor = 'red'
     }
     res.render('editar', dados)
 })
@@ -215,13 +240,14 @@ app.post('/contato', async function (req, res) {
 })
 
 app.post('/adicionar', async function (req, res) {
+    let nome = req.session.usuario.id
     let descricao = req.body.titulo
     let dia = req.body.dia
     let hora = req.body.hora
     let valor = req.body.valor
     let tipo = req.body.tipo ? 0 : 1
     let categoria = req.body.categoria
-
+    console.log(tipo)
     if (tipo == 0) {
         valor *= -1
     }
@@ -235,8 +261,8 @@ app.post('/adicionar', async function (req, res) {
         hora,
     }
 
-    const sql = "INSERT INTO lancamentos (descricao, valor, tipo, categoria, dia, hora) VALUES (?,?,?,?,?,?);"
-    const valores = [descricao, valor, tipo, categoria, dia, hora]
+    const sql = "INSERT INTO lancamentos (usuario, descricao, valor, tipo, categoria, dia, hora) VALUES (?,?,?,?,?,?,?);"
+    const valores = [nome, descricao, valor, tipo, categoria, dia, hora]
 
     await query(sql, valores)
 
@@ -249,34 +275,87 @@ app.post('/adicionar', async function (req, res) {
 var usuario_id
 
 app.post('/login', async function (req, res) {
-    let pss
-    const {email, senha, keep_logged } = req.body;
+    const { email, senha, keep_logged } = req.body;
     const sql = "SELECT * FROM users WHERE email= ? AND senha=?"
     const itens = [email, senha]
     const resultado = await query(sql, itens)
-    console.log(resultado);
-    usuario_id = resultado[0].email 
- 
+
     if (resultado.length > 0) {
+        usuario_id = resultado[0].id
         if (keep_logged) {
             const token = uuidv4()
-            const isOk = await query("UPDATE users SET token = ? WHERE usuario_id = ?", [token, resultado[0].usuario_id]);
-            console.log(resultado[0].usuario_id)
-            console.log(usuario_id);
+            await query("UPDATE users SET token = ? WHERE id = ?", [token, resultado[0].id]);
+
             res.cookie("token", token)
         }
-
         req.session.usuario = resultado[0]
         res.redirect("/")
         return
+    } else {
+        res.render("login", {
+            tituloPagina: "Login",
+            titulo: "Login",
+            frase: "Utilize o formulário abaixo para realizar o login na aplicação.",
+            mensagemErro: "Usuário/Senha incorretos!"
+        })
     }
+})
 
-    res.render("login", {
-        tituloPagina: "Login",
-        titulo: "Login",
-        frase: "Utilize o formulário abaixo para realizar o login na aplicação.",
-        mensagemErro: "Usuário/Senha inválidos!"
-    })
+app.post('/cadastro', async function (req, res) {
+    const { nome, email, senha } = req.body
+    dados = {
+        nome,
+        email,
+        senha,
+        alerta: ''
+    }
+    try {
+
+        if (!nome) throw new Error('Nome é obrigatório!')
+        if (!email) throw new Error('E-mail é obrigatório!')
+        if (!senha) throw new Error('Senha é obrigatória!')
+        await query('INSERT INTO users(nome, email, senha) VALUES (?,?,?)', [nome, email, senha])
+        res.render('login', {
+            titulo: "Faça login em sua conta",
+            msg: "Conta criada com sucesso!"
+        })
+    } catch (e) {
+        dados.alerta = e.message
+    }
+})
+
+app.post('/editar-perfil', async function (req, res) {
+    const { nome, email, senha } = req.body
+    let tipo
+    dados = {
+        nome,
+        email,
+        senha,
+        alerta: '',
+        tipo
+    }
+    try {
+
+        if (!nome) throw new Error('Nome é obrigatório!')
+        if (!email) throw new Error('E-mail é obrigatório!')
+        if (!senha) throw new Error('Senha é obrigatória!')
+        await query('UPDATE users set nome=?, email=?, senha=? WHERE id = ?', [nome, email, senha, req.session.usuario.id])
+
+        const t = await query('SELECT * FROM users WHERE id = ?', [req.session.usuario.id])
+        res.render('editar-perfil', {
+            nome: t[0].nome,
+            email: t[0].email,
+            senha: t[0].senha,
+            alerta: "Perfil atualizado com sucesso!",
+            tipo: 1
+        })
+    } catch (e) {
+        dados.alerta = e.message
+        dados.tipo = 0
+        res.render('editar-perfil', {
+            dados
+        })
+    }
 })
 
 /* --- LISTEN --- */

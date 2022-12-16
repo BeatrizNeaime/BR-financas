@@ -152,11 +152,90 @@
 
             <!-- Button trigger modal -->
             <div class="botao">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <a href="/adicionar/" class="link">Nova Transação</a>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+                    Nova Transação
                 </button>
             </div>
+
+            <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Adicionar Transação</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/adicionar" method="post">
+                                <div class="caixote">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingInput"
+                                            placeholder="name@example.com" name="titulo" value="{{titulo}}" required>
+                                        <label for="floatingInput">Título da Transação</label>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Data</span>
+                                        <input type="date" class="form-control" placeholder="Username"
+                                            aria-label="Username" aria-describedby="basic-addon1" name="dia"
+                                            value="{{dia}}" required>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Hora</span>
+                                        <input type="time" class="form-control" placeholder="Username"
+                                            aria-label="Username" aria-describedby="basic-addon1" name="hora"
+                                            value="{{hora}}" required>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="floatingInput"
+                                            placeholder="name@example.com" name="valor" value="{{valor}}" required>
+                                        <label for="floatingInput">Valor</label>
+                                    </div>
+                                    <div class="cat">
+                                        <select class="form-select" aria-label="Default select example" name="categoria"
+                                            required>
+                                            <option disabled selected>Categoria</option>
+                                            <option value="Alimentação">Alimentação</option>
+                                            <option value="Freelancer">Freelancer</option>
+                                            <option value="Lazer">Lazer</option>
+                                            <option value="Salário">Salário</option>
+                                            <option value="Saúde">Saúde</option>
+                                            <option value="Supermercado">Supermercado</option>
+                                        </select>
+                                    </div>
+                                    <div class="tipo-transacao otacaixa">
+                                        <div class="aux">
+                                            <label for="tipo">Tipo de Transação</label>
+                                            <div class="form-check">
+                                                <label class="form-check-label" for="flexCheckChecked">
+                                                    Saída
+                                                </label>
+                                                {{#if tipo}}
+                                                <input class="form-check-input" type="checkbox" value="0" name="tipo"
+                                                    id="flexCheckChecked" checked>
+                                                {{else}}
+                                                <input class="form-check-input" type="checkbox" value="0" name="tipo"
+                                                    id="flexCheckChecked">
+                                                {{/if}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {{!------- TABELA -------}}
+            {{#if msg}}
+            <div class="alert alert-success" role="alert">
+                {{msg}}
+            </div>
+            {{/if}}
 
             <div class="table-responsive" style="
             margin: 4rem 0;
@@ -204,153 +283,171 @@
                 </table>
             </div>
         </div>
+    </div>
+    <style>
+        .otacaixa {
+            margin-top: 1rem;
+        }
 
-        <style>
+        .aux {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        .botao {
+            align-items: center;
+            display: flex;
+            justify-content: flex-end;
+            margin: 2rem 0;
+        }
+
+        .botao button {
+            background-color: #33cc95;
+            border: none;
+        }
+
+        .botao button:hover {
+            background-color: #49b99d;
+        }
+
+        .btns {
+            width: 30%;
+        }
+
+        .btntextos:hover {
+            cursor: pointer;
+        }
+
+        .container {
+            height: 89vh !important;
+        }
+
+        .deletar {
+            color: #cc4934;
+            text-decoration: none;
+            transition: 1s;
+        }
+
+        .deletar:hover {
+            color: #cc4934;
+            transform: rotateX(80deg);
+        }
+
+        .dowArrow {
+            background-color: royalblue;
+            align-items: center;
+            display: flex;
+            height: 100%;
+            justify-content: space-evenly;
+        }
+
+        .e {
+            color: #7f7f7f;
+        }
+
+        .e:hover {
+            color: #49b99d;
+        }
+
+        .entrada {
+            color: #33cc95;
+        }
+
+        .excluirbtn,
+        .excluirbtn:hover {
+            color: #fefefe;
+            text-decoration: none;
+        }
+
+        .excluirbtn button {
+            background-color: #7f7f7f;
+        }
+
+        footer {
+            display: none;
+        }
+
+        .linha {
+            background-color: rgba(254, 254, 254, .6);
+            margin-bottom: 1rem;
+        }
+
+        .link-btn {
+            background-color: #33cc95 !important;
+            color: #fefefe;
+            text-decoration: none;
+        }
+
+        .link {
+            color: #fefefe;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            color: #fefefe;
+        }
+
+        .oculto {
+            color: #cc4934;
+            transition: ease 1s;
+        }
+
+        .oculto:hover {
+            cursor: pointer;
+        }
+
+        .row-input {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            text-align: center;
+            width: 80%
+        }
+
+        .saida {
+            color: #cc4934;
+        }
+
+        table {
+            border-spacing: 2rem;
+        }
+
+        tbody {
+            text-align: left;
+        }
+
+        thead tr {
+            margin-bottom: 1rem;
+        }
+
+        tr {
+            border-radius: 6px;
+            row-gap: 1rem;
+        }
+
+        .Ttitulo {
+            align-itens: center;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 16px;
+            text-align: left;
+            width: 80%;
+        }
+
+        @media screen and (max-width: 1023px) {
+
+            .contianer{
+                width: 100%;
+            }
             .botao {
-                align-items: center;
-                display: flex;
-                justify-content: flex-end;
-                margin: 2rem 0;
+                justify-content: center;
             }
 
-            .botao button {
-                background-color: #33cc95;
-                border: none;
+            .table-responsive {
+                width: 90vw !important;
             }
-
-            .botao button:hover {
-                background-color: #49b99d;
-            }
-
-            .btntextos:hover {
-                cursor: pointer;
-            }
-
-            .container{
-                height: 89vh !important;
-            }
-
-            .deletar {
-                color: #cc4934;
-                text-decoration: none;
-                transition: 1s;
-            }
-
-            .deletar:hover {
-                color: #cc4934;
-                transform: rotateX(80deg);
-            }
-
-            .dowArrow {
-                background-color: royalblue;
-                align-items: center;
-                display: flex;
-                height: 100%;
-                justify-content: space-evenly;
-            }
-
-            .e {
-                color: #7f7f7f;
-            }
-
-            .e:hover {
-                color: #49b99d;
-            }
-
-            .entrada {
-                color: #33cc95;
-            }
-
-            .excluirbtn,
-            .excluirbtn:hover {
-                color: #fefefe;
-                text-decoration: none;
-            }
-
-            .excluirbtn button {
-                background-color: #7f7f7f;
-            }
-
-            footer{
-                display: none;
-            }
-
-            .linha {
-                background-color: rgba(254, 254, 254, .6);
-                margin-bottom: 1rem;
-            }
-
-            .link-btn {
-                background-color: #33cc95 !important;
-                color: #fefefe;
-                text-decoration: none;
-            }
-
-            .link {
-                color: #fefefe;
-                text-decoration: none;
-            }
-
-            .link:hover {
-                color: #fefefe;
-            }
-
-            .oculto {
-                color: #cc4934;
-                transition: ease 1s;
-            }
-
-            .oculto:hover {
-                cursor: pointer;
-            }
-
-            .row-input {
-                align-items: center;
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-start;
-                text-align: center;
-                width: 80%
-            }
-
-            .saida {
-                color: #cc4934;
-            }
-
-            table {
-                border-spacing: 2rem;
-            }
-
-            tbody {
-                text-align: left;
-            }
-
-            thead tr {
-                margin-bottom: 1rem;
-            }
-
-            tr {
-                border-radius: 6px;
-                row-gap: 1rem;
-            }
-
-            .Ttitulo {
-                align-itens: center;
-                display: flex;
-                flex-direction: column;
-                margin-bottom: 16px;
-                text-align: left;
-                width: 80%;
-            }
-
-
-            @media screen and (max-width: 425px) {
-                .botao {
-                    justify-content: center;
-                }
-
-                .table-responsive {
-                    width: 90vw !important;
-                }
-            }
-        </style>
+        }
+    </style>

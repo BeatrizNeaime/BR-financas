@@ -1,4 +1,3 @@
-
 <h1 style="text-align:center">Adicionar produto</h1>
 
 <form action="/adicionar" method="POST" class="caixa">
@@ -49,9 +48,16 @@
                             class="entrando" required />
                     </div>
                     <div class="cat">
-                        <label for="categoria" style="text-align: left">Categoria</label>
-                        <input type="text" placeholder="Alimentação" value="{{categoria}}" name="categoria" step="any"
-                            class="entrando" required />
+                        <label for="categoria">Categoria</label>
+                        <select class="form-select" aria-label="Default select example" name="categoria" >
+                            <option disabled selected>Categoria</option>
+                            <option value="Alimentação">Alimentação</option>
+                            <option value="Salário">Salário</option>
+                            <option value="Freelancer">Freelancer</option>
+                            <option value="Lazer">Lazer</option>
+                            <option value="Saúde">Saúde</option>
+                            <option value="Supermercado">Supermercado</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -96,6 +102,10 @@
         padding: .8rem;
     }
 
+    .cat{
+        width: 85%;
+    }
+
     .fim {
         align-items: center;
         display: flex;
@@ -135,7 +145,8 @@
         text-decoration: none;
     }
 
-    .link:hover,.link-btn:hover {
+    .link:hover,
+    .link-btn:hover {
         color: #ebe8e5;
     }
 

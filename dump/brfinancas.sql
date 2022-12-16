@@ -35,7 +35,12 @@ CREATE TABLE users(
 	id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR (100) NOT NULL,
     email VARCHAR (100) NOT NULL,
-    senha INTEGER NOT NULL
+    senha INTEGER NOT NULL,
+    token varchar(60)
 );
 alter table lancamentos add email varchar(100) after id;
 alter table lancamentos add constraint email foreign key(email) references users(email);
+alter table users add token varchar(60);
+
+select * from users;
+drop table contatos;

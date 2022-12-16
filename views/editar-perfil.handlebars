@@ -1,0 +1,123 @@
+<div class="caixa">
+    <div class="detalhe">
+        <div class="box">
+            <div class="logo">
+                <div class="txt">
+                    <h4 class="title">Editar Perfil</h4>
+                </div>
+            </div>
+        </div>
+        <div class="loginson">
+            {{#if alerta}}
+            {{#if tipo}}
+            <div class="alert alert-success" role="alert">
+                {{alerta}}
+            </div>
+            {{else}}
+            <div class="alert alert-danger" role="alert">
+                {{alerta}}
+            </div>
+            {{/if}}
+            {{/if}}
+            <form action="/editar-perfil" method="post">
+                <div class="caixote">
+                    <div class="inputs">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control input " id="floatingInput"
+                                placeholder="exemplo@exemplo.com" name="nome" value="{{nome}}" autocomplete="off"
+                                required>
+                            <label for="floatingInput">Nome</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control input " id="floatingInput"
+                                placeholder="exemplo@exemplo.com" name="email" value="{{email}}" autocomplete="off"
+                                required>
+                            <label for="floatingInput">e-mail</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control input " id="floatingInput"
+                                placeholder="exemplo@exemplo.com" name="senha" value="{{senha}}" autocomplete="off"
+                                required>
+                            <label for="floatingInput">senha</label>
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <button class="goback"><a class="link-back" href="/"><i class='bx bx-arrow-back'></i>
+                                Voltar</a></button>
+                        <button type="submit" class="vai">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .alert {
+        text-align: center;
+    }
+
+    .btns {
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 1rem;
+    }
+
+    button {
+        border: none;
+        border-radius: 6px;
+        padding: 5px;
+    }
+
+    .caixa {
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 0.5rem;
+        height: 88vh;
+        width: 100vw;
+    }
+
+    .detalhe {
+        background-color: #c5ccd3;
+        border-radius: 6px;
+        box-shadow: 10px 10px 6px -3px #87848769;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        width: 50%;
+    }
+
+    .goback {
+        padding: 7px;
+    }
+
+    .goback:hover {
+        background-color: #a2a3a7;
+    }
+
+    .link-back {
+        text-decoration: none;
+    }
+
+    .title {
+        margin-top: 1rem;
+    }
+
+    .vai {
+        background-color: #33cc95;
+        color: #fefefe;
+    }
+
+    .vai:hover {
+        background-color: #37a37b;
+    }
+
+    @media screen and (max-width: 1023px) {
+        .detalhe {
+            width: 90%;
+        }
+    }
+</style>

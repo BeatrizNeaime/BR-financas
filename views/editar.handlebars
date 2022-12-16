@@ -1,186 +1,170 @@
-<div class="caixote">
-    <h1 style="text-align: center;">Editar produto</h1>
-    <form action="/editar" method="POST" class="caixa">
-        {{#if alerta}}
-        <h3 class="alerta" style="color: {{cor}};" >{{alerta}}</h3>
-        {{/if}}
-        <div class="container text-center">
-            <div class="row">
-                <div class="col">
-                    <div class="otacaixa">
-                        <div class="Ttitulo marginb">
-                            <label>Título da Transação</label>
-                            <input type="text" value="{{descricao}}" name="titulo" class="entrando" required />
-                        </div>
-                        <div class="inputers container-fluid">
-                            <div class="date">
-                                <label for="dia">Data</label>
-                                <input type="date" class="data-input entrando" name="dia" value="{{dia}}" required />
-                            </div>
-                            <div class="hora container-fluid">
-                                <label for="hora">Hora</label>
-                                <input type="time" class="hora-input entrando" name="hora" value="{{hora}}" required />
-                            </div>
-                        </div>
-                    </div>
+<div class="caixa">
+    <div class="detalhe">
+        <div class="box">
+            <div class="logo">
+                <div class="txt">
+                    <h4 class="title">Editar Transação</h4>
                 </div>
-                <div class="col">
-                    <div class="tipo-transacao otacaixa">
-                        <label for="tipo">Tipo de Transação</label>
-                        <div class="btns">
-                            <div class="form-check">
-                                <label class="form-check-label" for="flexCheckChecked">
-                                    Saída
-                                </label>
-                                {{#if tipo}}
-                                <input class="form-check-input" type="checkbox" value="0" name="tipo"
-                                    id="flexCheckChecked">
-                                {{else}}
-                                <input class="form-check-input" type="checkbox" value="0" name="tipo"
-                                    id="flexCheckChecked" checked>
-                                {{/if}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="otacaixa">
-                        <div class="valor-input">
-                            <label for="valor" style="text-align: left">Valor</label>
-                            <input type="number" placeholder="400.00" value="{{valor}}" name="valor" step="any"
-                                class="entrando" required />
-                        </div>
-                        <div class="cat">
-                            <label for="categoria" style="text-align: left">Categoria</label>
-                            <input type="text" placeholder="Alimentação" value="{{categoria}}" name="categoria"
-                                step="any" class="entrando" required />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="fim container-fluid">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><a href="/"
-                        class="link">Cancelar</a></button>
-                <button type="submit" class="btn btn-primary add">Salvar</button>
-                <input type="hidden" name="id" value="{{id}}">
             </div>
         </div>
-    </form>
+        <div class="loginson">
+            {{#if alerta}}
+            {{#if tipo}}
+            <div class="alert alert-danger" role="alert">
+                {{alerta}}
+            </div>
+            {{else}}
+            <div class="alert alert-danger" role="alert">
+                {{alerta}}
+            </div>
+            {{/if}}
+            {{/if}}
+            <form action="/editar" method="post">
+                <div class="caixote">
+                    <div class="inputs">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control input " id="floatingInput"
+                                placeholder="exemplo@exemplo.com" name="descricao" value="{{descricao}}" autocomplete="off"
+                                required>
+                            <label for="floatingInput">Titulo da Transação</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Data</span>
+                            <input type="date" class="form-control" placeholder="Username" aria-label="Username"
+                                aria-describedby="basic-addon1" name="dia" value="{{dia}}" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Hora</span>
+                            <input type="time" class="form-control" placeholder="Username" aria-label="Username"
+                                aria-describedby="basic-addon1" name="hora" value="{{hora}}" required>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com"
+                                name="valor" value="{{valor}}" required>
+                            <label for="floatingInput">Valor</label>
+                        </div>
+                        <div class="cat">
+                            <select class="form-select" aria-label="Default select example" name="categoria" value="{{categoria}}">
+                                <option disabled selected>Categoria</option>
+                                <option value="Alimentação">Alimentação</option>
+                                <option value="Freelancer">Freelancer</option>
+                                <option value="Lazer">Lazer</option>
+                                <option value="Salário">Salário</option>
+                                <option value="Saúde">Saúde</option>
+                                <option value="Supermercado">Supermercado</option>
+                            </select>
+                        </div>
+                        <div class="tipo-transacao otacaixa">
+                            <div class="aux">
+                                <label for="tipo">Tipo de Transação</label>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                        Saída
+                                    </label>
+                                    {{#if tipo}}
+                                    <input class="form-check-input" type="checkbox" value="0" name="tipo"
+                                        id="flexCheckChecked" checked>
+                                    {{else}}
+                                    <input class="form-check-input" type="checkbox" value="0" name="tipo"
+                                        id="flexCheckChecked">
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <button class="goback"><a class="link-back" href="/"><i class='bx bx-arrow-back'></i>
+                                Voltar</a></button>
+                        <button type="submit" class="vai">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <style>
-    .add {
-        background-color: #33cc95;
-        border: none;
-    }
 
-    .btns {
-        align-items: center;
-        display: flex;
-        gap: 2rem;
-    }
-
-    .caixa {
+    .aux{
         align-items: center;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        height: 70vh;
-    }
-
-    .date,
-    .hora {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        text-align: left;
-    }
-
-    .entrando {
-        padding: .8rem;
-    }
-
-    .fim {
-        align-items: center;
-        display: flex;
-        gap: 10%;
-        justify-content: center;
-        margin-top: 3rem;
-    }
-
-    input {
-        background-color: #F9F6F6;
-        border: none;
-        border-radius: 6px;
-        height: 2rem;
-        width: 90%;
-    }
-
-    .inputers {
-        align-items: center;
-        display: flex;
-        justify-content: space-evenly;
-        text-align: left;
-    }
-
-    label {
-        text-align: left;
-    }
-
-    .lastinput {
-        align-items: center;
-        display: flex;
-        justify-content: space-evenly;
-    }
-
-    .link,
-    .link-btn {
-        color: #ebe8e5;
-        text-decoration: none;
-    }
-
-    .link:hover,
-    .link-btn:hover {
-        color: #ebe8e5;
-    }
-
-    .marginb {
-        margin-bottom: 1rem;
     }
 
     .otacaixa {
         align-items: center;
         display: flex;
+        justify-content: space-evenly;
+        margin: 1rem 0;
+    }
+
+    .alert {
+        text-align: center;
+    }
+
+    .btns {
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 1rem;
+    }
+
+    button {
+        border: none;
+        border-radius: 6px;
+        padding: 5px;
+    }
+
+    .caixa {
+        align-items: center;
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 0.5rem;
+        height: 88vh;
+        width: 100vw;
+    }
+
+    .detalhe {
+        background-color: #c5ccd3;
+        border-radius: 6px;
+        box-shadow: 10px 10px 6px -3px #87848769;
+        align-items: center;
+        display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        padding: .6rem;
+        width: 50%;
     }
 
-    .Ttitulo {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
+    .goback {
+        padding: 7px;
     }
 
-    .tipo-transacao {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        margin: 2rem;
+    .goback:hover {
+        background-color: #a2a3a7;
     }
 
-    .valor-input {
-        margin-bottom: .6rem;
+    .link-back {
+        text-decoration: none;
     }
 
-    .valor-input,
-    .cat {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
+    .title {
+        margin-top: 1rem;
     }
+
+    .vai {
+        background-color: #33cc95;
+        color: #fefefe;
+    }
+
+    .vai:hover {
+        background-color: #37a37b;
+    }
+
+    @media screen and (max-width: 1023px) {
+        .detalhe{
+            width: 90%;
+        }
+    }
+
 </style>

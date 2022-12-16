@@ -68,20 +68,45 @@
                     ">Sobre</a>
                         </li>
 
-                        <li class="nav-item logout">
-                            <a class="nav-link" href="/login" style="
-                        color: #fefefe;
-                    ">Logout</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Perfil
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/editar-perfil?id={{userid}}">Editar perfil</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+
+                                <li><a class="dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">Logout</a></li>
+                            </ul>
                         </li>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Tem certeza?</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Tem certeza que deseja sair de sua conta?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-primary"><a href="/logout"
+                                                class="sair">Sair</a></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="titulo" value="{{titulo}}">
-                        <button class="btn btn-outline-success" type="submit" style="
-                                align-itens: center;
-                                background-color: #33cc95;
-                                display: flex;
-                            "><a href="/buscar{{titulo}}" class="linkbtn">Buscar</a></button>
-                    </form>
                 </div>
             </div>
         </nav>
@@ -100,17 +125,26 @@
 </body>
 
 <style>
-
-    footer{
-        text-align: center;
+    .btn-primary {
+        background-color: #33cc95;
+        border: none;
     }
 
-    .linkbtn{
+    .btn-primary a {
         color: #fefefe;
         text-decoration: none;
     }
 
-    .linkbtn:hover{
+    footer {
+        text-align: center;
+    }
+
+    .linkbtn {
+        color: #fefefe;
+        text-decoration: none;
+    }
+
+    .linkbtn:hover {
         color: #fefefe;
     }
 
@@ -119,7 +153,8 @@
         transition: ease 0.5s;
     }
 
-    .linkson:hover {
+    .linkson:hover,
+    .dropdown:hover {
         background-color: #33cc95;
         border-radius: 6px;
     }
@@ -127,6 +162,12 @@
     .logout:hover {
         background-color: #cc4934;
         border-radius: 6px;
+    }
+
+    .nav-item,
+    .nav-link {
+        color: #fefefe !important;
+        cursor: pointer;
     }
 </style>
 
