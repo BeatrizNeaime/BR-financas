@@ -67,15 +67,15 @@ app.get("/", async function (req, res) {
         const listaLancamentos = await query('SELECT * FROM lancamentos WHERE usuario = ?', [req.session.usuario.id])
         let entradas = 0, saidas = 0, total = 0
         for (let i = 0; i < listaLancamentos.length; i++) {
-            if (parseFloat(listaLancamentos[i].valor) >= 0) {
+            if (parseFloat(listaLancamentos[i].tipo) == 1) {
                 entradas += parseFloat(listaLancamentos[i].valor)
-            } else {
+            } else if (parseFloat(listaLancamentos[i].tipo) == 0) {
                 saidas += parseFloat(listaLancamentos[i].valor)
             }
         }
 
         let helper
-        total = entradas + saidas
+        total = entradas - saidas
         if (total < 0) {
             helper = 0
         } else {
@@ -88,7 +88,6 @@ app.get("/", async function (req, res) {
             saidas: saidas,
             total: total,
             helper: helper,
-            nome: req.session.usuario.nome,
             userid: req.session.usuario.id
         })
     }
@@ -133,25 +132,24 @@ app.get("/delete/produto/:id", async function (req, res) {
     }
 })
 
-app.get('/editar', async function (req, res) {
+app.get('/editar/:id', async function (req, res) {
     if (!req.session.usuario) {
         res.redirect("/login")
     } else {
-        const id = parseInt(req.query.id)
-        const dadosItem = await query("SELECT * FROM lancamentos WHERE id=?", [id])
-
+        const id = parseInt(req.params.id)
+        const dadosItem = await query("SELECT * FROM lancamentos WHERE id=? AND usuario = ? ", [id, req.session.usuario.id])
         if (dadosItem.length === 0) {
             res.redirect('/')
         }
 
         res.render('editar', {
-            id: dadosItem[0].id,
             descricao: dadosItem[0].descricao,
             dia: dadosItem[0].dia,
             hora: dadosItem[0].hora,
             tipo: dadosItem[0].tipo,
             valor: dadosItem[0].valor,
-            categoria: dadosItem[0].categoria
+            categoria: dadosItem[0].categoria,
+            id: dadosItem[0].id
         })
     }
 })
@@ -192,10 +190,11 @@ app.get('/editar-perfil', async function (req, res) {
 })
 
 /* --- MÉTODOS POST ---*/
-
 app.post('/editar', async function (req, res) {
-    let { id, descricao, dia, hora, valor, categoria, tipo } = req.body
-    console.log(categoria)
+    const id = parseInt(req.query.id)
+    const { descricao, dia, hora, valor, categoria } = req.body
+    console.log(id)
+    let tipo = req.body.tipo ? 0 : 1
     const dados = {
         alerta: '',
         descricao,
@@ -205,19 +204,18 @@ app.post('/editar', async function (req, res) {
         dia,
         hora
     }
-
     try {
-        if (!descricao) throw new Error('Título inválido!')
+        if (!descricao) throw new Error("Título inválido!")
         if (!categoria) throw new Error('Categoria inválida!')
         if (!valor) throw new Error('Valor inválido!')
-        let sql = 'UPDATE lancamentos SET valor=?, descricao=?, tipo=?, categoria=?, dia=?, hora=? WHERE id=?';
         let valores = [valor, descricao, tipo, categoria, dia, hora, id]
-        await query(sql, valores)
-        res.redirect('/')
+        //await query("UPDATE brfinancas.lancamentos SET valor = ?, descricao = ?, tipo = ?, categoria = ?, dia = ?, hora = ? WHERE (id = ?)", valores)
+        //res.redirect('/')
     } catch (e) {
         dados.alerta = e.message
+        console.log(e.message)
+        res.render('editar', dados)
     }
-    res.render('editar', dados)
 })
 
 app.post('/contato', async function (req, res) {
@@ -247,10 +245,6 @@ app.post('/adicionar', async function (req, res) {
     let valor = req.body.valor
     let tipo = req.body.tipo ? 0 : 1
     let categoria = req.body.categoria
-    console.log(tipo)
-    if (tipo == 0) {
-        valor *= -1
-    }
 
     const dadosPagina = {
         descricao,

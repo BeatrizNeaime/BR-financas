@@ -45,7 +45,7 @@
                         </div>
                         <div class="cat">
                             <select class="form-select" aria-label="Default select example" name="categoria" value="{{categoria}}">
-                                <option disabled selected>Categoria</option>
+                                <option disabled>Categoria</option>
                                 <option value="Alimentação">Alimentação</option>
                                 <option value="Freelancer">Freelancer</option>
                                 <option value="Lazer">Lazer</option>
@@ -62,11 +62,11 @@
                                         Saída
                                     </label>
                                     {{#if tipo}}
-                                    <input class="form-check-input" type="checkbox" value="0" name="tipo"
-                                        id="flexCheckChecked" checked>
-                                    {{else}}
-                                    <input class="form-check-input" type="checkbox" value="0" name="tipo"
+                                    <input class="form-check-input" type="checkbox" name="tipo" value="1" 
                                         id="flexCheckChecked">
+                                    {{else}}
+                                    <input class="form-check-input" type="checkbox" name="tipo" value="0" 
+                                        id="flexCheckChecked" checked >
                                     {{/if}}
                                 </div>
                             </div>
@@ -76,6 +76,7 @@
                         <button class="goback"><a class="link-back" href="/"><i class='bx bx-arrow-back'></i>
                                 Voltar</a></button>
                         <button type="submit" class="vai">Salvar</button>
+                        <input type="hidden" name="id" value="{{idT}}">
                     </div>
                 </div>
             </form>
@@ -84,7 +85,6 @@
 </div>
 
 <style>
-
     .aux{
         align-items: center;
         display: flex;

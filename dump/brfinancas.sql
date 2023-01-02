@@ -42,5 +42,5 @@ alter table lancamentos add email varchar(100) after id;
 alter table lancamentos add constraint email foreign key(email) references users(email);
 alter table users add token varchar(60);
 
-select * from users;
+select * from lancamentos;
 drop table contatos;
